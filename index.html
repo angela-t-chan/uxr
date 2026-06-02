@@ -49,6 +49,7 @@ nav li{position:relative}
 nav a{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--lite);text-decoration:none;transition:color .2s}
 nav a:hover{color:var(--t)}
 .has-dropdown>a::after{content:'⌄';font-size:10px;margin-left:.35rem;color:var(--lite)}
+.has-dropdown{padding-bottom:8px}
 .dropdown-menu{
   position:absolute;top:100%;left:50%;
   transform:translateX(-50%);
@@ -56,10 +57,9 @@ nav a:hover{color:var(--t)}
   background:rgba(253,250,246,.99);
   border:1px solid var(--border);border-radius:14px;
   box-shadow:0 14px 36px rgba(74,56,32,.11);
-  padding:.55rem;padding-top:calc(.55rem + 8px);display:flex;flex-direction:column;gap:.15rem;
+  padding:.55rem;display:flex;flex-direction:column;gap:.15rem;
   opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .18s,visibility .18s;
-  transform:translateX(-50%) translateY(0);
 }
 .has-dropdown:hover .dropdown-menu,.has-dropdown:focus-within .dropdown-menu{
   opacity:1;visibility:visible;pointer-events:auto;
@@ -286,7 +286,7 @@ footer p{font-size:12px;color:var(--lite);margin:0}
           <span class="dropdown-sub">UX research case study</span>
         </a>
         <a href="#work">
-          Real-time CPR guidance
+          Real-Time Guidance for High-Stakes Response
           <span class="dropdown-sub">Case study coming soon</span>
         </a>
       </div>
@@ -412,9 +412,9 @@ footer p{font-size:12px;color:var(--lite);margin:0}
         </svg>
       </div>
       <div class="work-body" style="display:flex;flex-direction:column">
-        <div class="work-kicker">UX Research · Digital Health / Telemedicine · Real-time Feedback</div>
-        <div class="work-title" style="opacity:.5">Real-time CPR guidance system</div>
-        <p class="work-desc" style="opacity:.5;margin-bottom:0">Evaluating how real-time biometric feedback changes lay-rescuer performance during cardiac emergencies.</p>
+        <div class="work-kicker">UX Design/Research  · Digital Health / Telemedicine · Real-time Feedback</div>
+        <div class="work-title" style="opacity:.5">Real-Time Guidance for High-Stakes Response</div>
+        <p class="work-desc" style="opacity:.5;margin-bottom:0">Designing and evaluating feedback systems that help non-experts act with greater confidence during time-sensitive medical emergencies.</p>
         <div class="soon-label">Case study coming soon</div>
       </div>
     </div>
