@@ -17,63 +17,260 @@
   --serif:'Fraunces',Georgia,serif;
   --sans:'DM Sans',system-ui,sans-serif;
 }
+
+/* ── Base ── */
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--ww);color:var(--ink);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
-nav{position:sticky;top:0;z-index:100;background:rgba(253,250,246,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:56px}
-.nav-name{font-family:var(--serif);font-size:15px;color:var(--ink);text-decoration:none;font-weight:200;letter-spacing:.02em}
+
+/* ── Entrance animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade-up{animation:fadeUp .7s cubic-bezier(.22,1,.36,1) both}
+.fade-in{animation:fadeIn .6s ease both}
+.delay-1{animation-delay:.1s}
+.delay-2{animation-delay:.22s}
+.delay-3{animation-delay:.36s}
+.delay-4{animation-delay:.5s}
+.delay-5{animation-delay:.64s}
+
+/* ── Nav ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(253,250,246,.96);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:58px;
+}
+.nav-name{font-family:var(--serif);font-size:15px;color:var(--ink);text-decoration:none;font-weight:200;letter-spacing:.02em;transition:color .2s}
+.nav-name:hover{color:var(--t)}
 nav ul{display:flex;gap:2rem;list-style:none;align-items:center}
 nav li{position:relative}
 nav a{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--lite);text-decoration:none;transition:color .2s}
 nav a:hover{color:var(--t)}
 .has-dropdown>a::after{content:'⌄';font-size:10px;margin-left:.35rem;color:var(--lite)}
-.dropdown-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(8px);min-width:230px;background:rgba(253,250,246,.98);border:1px solid var(--border);border-radius:12px;box-shadow:0 10px 28px rgba(74,56,32,.10);padding:.55rem;display:flex;flex-direction:column;gap:.15rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s,transform .18s,visibility .18s}
-.has-dropdown:hover .dropdown-menu,.has-dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
-.dropdown-menu a{display:block;padding:.65rem .75rem;border-radius:8px;font-size:11px;letter-spacing:.06em;text-transform:none;color:var(--mid);line-height:1.35}
+.dropdown-menu{
+  position:absolute;top:calc(100% + 8px);left:50%;
+  transform:translateX(-50%);
+  min-width:240px;
+  background:rgba(253,250,246,.99);
+  border:1px solid var(--border);border-radius:14px;
+  box-shadow:0 14px 36px rgba(74,56,32,.11);
+  padding:.55rem;display:flex;flex-direction:column;gap:.15rem;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .18s,transform .18s,visibility .18s;
+  transform:translateX(-50%) translateY(6px);
+}
+.has-dropdown:hover .dropdown-menu,.has-dropdown:focus-within .dropdown-menu{
+  opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);
+}
+.dropdown-menu a{display:block;padding:.65rem .8rem;border-radius:9px;font-size:11px;letter-spacing:.06em;text-transform:none;color:var(--mid);line-height:1.35;transition:background .15s,color .15s}
 .dropdown-menu a:hover{background:var(--tp);color:var(--td)}
-.dropdown-menu .dropdown-sub{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--lite);margin-top:.15rem}
-.hero{padding:6rem 3rem 4rem;max-width:1100px;margin:0 auto}
-.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:end}
-.eyebrow{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t);margin-bottom:1.25rem}
-h1{font-family:var(--serif);font-size:clamp(3rem,6vw,5.8rem);font-weight:800;line-height:.96;letter-spacing:-.035em;color:var(--ink);margin-bottom:1.5rem}
+.dropdown-menu .dropdown-sub{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--lite);margin-top:.18rem}
+
+/* ── Hero ── */
+.hero{
+  padding:7rem 3rem 5rem;
+  max-width:1100px;margin:0 auto;
+  position:relative;
+}
+
+/* Decorative mark behind headline */
+.hero::before{
+  content:'';
+  position:absolute;
+  top:5rem;right:2rem;
+  width:380px;height:380px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(196,98,42,.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:4.5rem;align-items:center}
+.eyebrow{
+  font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--t);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:.65rem;
+}
+.eyebrow::before{content:'';display:inline-block;width:24px;height:1px;background:var(--t);flex-shrink:0}
+h1{font-family:var(--serif);font-size:clamp(3rem,5.8vw,5.6rem);font-weight:800;line-height:.95;letter-spacing:-.04em;color:var(--ink);margin-bottom:1.75rem}
 h1 em{font-style:italic;font-weight:200;color:var(--t)}
-.lede{font-size:18px;color:var(--mid);line-height:1.8;font-weight:300;max-width:700px;margin-bottom:2rem}
-.hero-card{background:var(--sand);border:1px solid var(--border);border-radius:20px;padding:2.25rem}
-.hero-card h2{font-family:var(--serif);font-size:1.45rem;font-weight:600;line-height:1.2;margin-bottom:1rem}
-.hero-card p{font-size:14px;color:var(--mid);margin-bottom:1.25rem}
-.chips{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1.5rem}
-.chip{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:100px;border:1px solid var(--border);color:var(--lite);background:var(--ww)}
-.chip-accent{border-color:rgba(196,98,42,.35);color:var(--td);background:var(--tp)}
-.section-divider{height:1px;background:var(--border);margin:0 3rem}
-.section{padding:5rem 3rem;max-width:1100px;margin:0 auto}
-.s-tag{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t);margin-bottom:.75rem}
-h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.7rem);font-weight:600;line-height:1.15;letter-spacing:-.015em;margin-bottom:1.25rem}
-h3{font-size:14px;font-weight:500;margin-bottom:.4rem;color:var(--ink)}
-p{color:var(--mid);margin-bottom:1rem;font-size:15px}.intro-p{font-size:16px;color:var(--mid);line-height:1.8;margin-bottom:1.25rem;max-width:760px}strong{color:var(--ink);font-weight:500}
-.cta-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem}
-.btn{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;border-radius:100px;padding:.7rem 1.1rem;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--border);color:var(--ink);background:var(--ww)}
+.lede{font-size:17px;color:var(--mid);line-height:1.85;font-weight:300;margin-bottom:1.25rem}
+.cta-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2.25rem}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;
+  border-radius:100px;padding:.75rem 1.35rem;
+  font-size:12px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
+  border:1px solid var(--border);color:var(--ink);background:var(--ww);
+  transition:transform .2s,box-shadow .2s,background .2s;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(74,56,32,.09)}
 .btn-primary{background:var(--t);border-color:var(--t);color:#fff}
-.btn:hover{transform:translateY(-1px)}
-.work-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;margin-top:2.5rem}
-.work-card{display:grid;grid-template-columns:.95fr 1.35fr;gap:0;border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--ww);text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s}
-.work-card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(74,56,32,.08)}
-.work-visual{background:var(--sand);min-height:280px;display:flex;align-items:center;justify-content:center;padding:2rem;border-right:1px solid var(--border)}
-.work-body{padding:2.25rem}
-.work-kicker{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t);margin-bottom:.7rem}
-.work-title{font-family:var(--serif);font-size:1.65rem;font-weight:600;line-height:1.15;margin-bottom:.85rem;color:var(--ink)}
-.work-desc{font-size:14.5px;color:var(--mid);line-height:1.7;margin-bottom:1.2rem}
-.meta{display:grid;grid-template-columns:1fr 1fr;gap:.85rem 1.5rem;border-top:1px solid var(--border);padding-top:1.25rem;margin-top:1.25rem}
-.meta-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--lite);margin-bottom:.15rem}.meta-val{font-size:13px;color:var(--ink);line-height:1.4}
-.practice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:16px;overflow:hidden;margin-top:2.5rem}
-.practice-card{background:var(--ww);padding:2rem}
-.practice-card h3{font-family:var(--serif);font-size:1.15rem;font-weight:600;margin-bottom:.6rem}
-.practice-card p{font-size:13.5px;color:var(--lite);line-height:1.6;margin:0}
-.methods{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:2rem}.method{font-size:12px;padding:5px 14px;border-radius:100px;border:1px solid var(--border);color:var(--mid);background:var(--ww)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}.about-card{background:var(--sand);border:1px solid var(--border);border-radius:14px;padding:2rem}.about-card h3{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--t);margin-bottom:1rem;font-weight:500}.about-card ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}.about-card li{font-size:14px;color:var(--mid);display:flex;gap:.6rem;line-height:1.5}.about-card li::before{content:'→';color:var(--t);flex-shrink:0}
-footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center}footer p{font-size:12px;color:var(--lite);margin:0}.fn{font-family:var(--serif);font-size:15px;font-weight:200;color:var(--ink)}
-@media(max-width:760px){nav,footer{padding-left:1.5rem;padding-right:1.5rem}.hero,.section{padding-left:1.5rem;padding-right:1.5rem}.hero-grid,.work-card,.practice-grid,.about-grid{grid-template-columns:1fr}.section-divider{margin-left:1.5rem;margin-right:1.5rem}.work-visual{border-right:0;border-bottom:1px solid var(--border)}nav ul{gap:1rem}.dropdown-menu{left:auto;right:0;transform:translateY(8px)}.has-dropdown:hover .dropdown-menu,.has-dropdown:focus-within .dropdown-menu{transform:translateY(0)}.meta{grid-template-columns:1fr}}
+.btn-primary:hover{background:var(--td);border-color:var(--td);box-shadow:0 6px 18px rgba(196,98,42,.3)}
+
+/* ── Hero card (right column) ── */
+.hero-card{
+  background:var(--sand);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:2.5rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero-card::after{
+  content:'';
+  position:absolute;
+  bottom:-40px;right:-40px;
+  width:160px;height:160px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(196,98,42,.1) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-card h2{font-family:var(--serif);font-size:1.35rem;font-weight:600;line-height:1.2;margin-bottom:1rem;color:var(--ink)}
+.hero-card p{font-size:14px;color:var(--mid);line-height:1.75;margin-bottom:0}
+.chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.75rem}
+.chip{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;padding:5px 13px;border-radius:100px;border:1px solid var(--border);color:var(--lite);background:var(--ww)}
+.chip-accent{border-color:rgba(196,98,42,.35);color:var(--td);background:var(--tp)}
+
+/* ── Availability badge ── */
+.avail-badge{
+  display:inline-flex;align-items:center;gap:.55rem;
+  font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--td);font-weight:500;
+  background:var(--tp);border:1px solid rgba(196,98,42,.25);
+  border-radius:100px;padding:5px 14px 5px 10px;
+  margin-top:1.5rem;
+}
+.avail-dot{width:7px;height:7px;border-radius:50%;background:#5cb85c;flex-shrink:0;box-shadow:0 0 0 2px rgba(92,184,92,.2)}
+
+/* ── Divider ── */
+.section-divider{height:1px;background:var(--border);margin:0 3rem}
+
+/* ── Generic section ── */
+.section{padding:5.5rem 3rem;max-width:1100px;margin:0 auto}
+.s-tag{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t);margin-bottom:.85rem;display:flex;align-items:center;gap:.65rem}
+.s-tag::before{content:'';display:inline-block;width:18px;height:1px;background:var(--t);flex-shrink:0}
+h2{font-family:var(--serif);font-size:clamp(1.9rem,3vw,2.75rem);font-weight:600;line-height:1.1;letter-spacing:-.02em;margin-bottom:1.25rem}
+h3{font-size:14px;font-weight:500;margin-bottom:.4rem;color:var(--ink)}
+p{color:var(--mid);margin-bottom:1rem;font-size:15px}
+.intro-p{font-size:16px;color:var(--mid);line-height:1.85;margin-bottom:1.25rem;max-width:720px}
+strong{color:var(--ink);font-weight:500}
+
+/* ── Work cards ── */
+.work-grid{display:grid;grid-template-columns:1fr;gap:2rem;margin-top:2.75rem}
+.work-card{
+  display:grid;grid-template-columns:.95fr 1.35fr;gap:0;
+  border:1px solid var(--border);border-radius:20px;overflow:hidden;
+  background:var(--ww);text-decoration:none;color:inherit;
+  transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s;
+}
+.work-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(74,56,32,.1)}
+.work-visual{
+  background:var(--sand);
+  min-height:300px;
+  display:flex;align-items:center;justify-content:center;
+  padding:2.25rem;
+  border-right:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.work-visual::after{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 60% 40%,rgba(196,98,42,.06) 0%,transparent 65%);
+}
+.work-body{padding:2.5rem}
+.work-kicker{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--t);margin-bottom:.85rem}
+.work-title{font-family:var(--serif);font-size:1.7rem;font-weight:600;line-height:1.1;margin-bottom:.9rem;color:var(--ink)}
+.work-desc{font-size:14.5px;color:var(--mid);line-height:1.75;margin-bottom:0}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.75rem;border-top:1px solid var(--border);padding-top:1.35rem;margin-top:1.5rem}
+.meta-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--lite);margin-bottom:.2rem}
+.meta-val{font-size:13px;color:var(--ink);line-height:1.45}
+.work-arrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--t);margin-top:1.5rem;transition:gap .2s;
+}
+.work-card:hover .work-arrow{gap:.75rem}
+
+/* Coming soon cards */
+.work-card-soon{
+  display:grid;grid-template-columns:.95fr 1.35fr;gap:0;
+  border:1px solid var(--border);border-radius:20px;overflow:hidden;
+  background:var(--ww);opacity:.6;
+}
+.work-card-soon .work-visual{min-height:200px}
+.soon-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--lite);font-weight:500;margin-top:auto;padding-top:1.25rem}
+
+/* ── Practice ── */
+.practice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:18px;overflow:hidden;margin-top:2.75rem}
+.practice-card{background:var(--ww);padding:2.25rem;transition:background .2s}
+.practice-card:hover{background:var(--sand)}
+.practice-num{font-family:var(--serif);font-size:3rem;font-weight:800;color:rgba(196,98,42,.12);line-height:1;margin-bottom:.75rem;letter-spacing:-.04em}
+.practice-card h3{font-family:var(--serif);font-size:1.1rem;font-weight:600;margin-bottom:.6rem;color:var(--ink)}
+.practice-card p{font-size:13.5px;color:var(--lite);line-height:1.65;margin:0}
+.methods{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:2.25rem}
+.method{font-size:12px;padding:5px 15px;border-radius:100px;border:1px solid var(--border);color:var(--mid);background:var(--ww);transition:border-color .2s,color .2s}
+.method:hover{border-color:rgba(196,98,42,.4);color:var(--td)}
+
+/* ── About ── */
+.about-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:start;margin-top:2rem}
+.about-copy .intro-p{font-size:17px;line-height:1.9}
+.about-copy .intro-p + .intro-p{margin-top:0}
+
+.timeline{margin-top:2rem;display:flex;flex-direction:column;gap:0}
+.tl-item{display:grid;grid-template-columns:80px 1fr;gap:1.25rem;padding:1.1rem 0;border-bottom:1px solid var(--border)}
+.tl-item:last-child{border-bottom:0}
+.tl-year{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--lite);padding-top:.1rem;font-weight:500}
+.tl-body h4{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:.2rem}
+.tl-body p{font-size:13px;color:var(--lite);line-height:1.5;margin:0}
+
+.about-cards{display:flex;flex-direction:column;gap:1rem}
+.about-card{background:var(--sand);border:1px solid var(--border);border-radius:16px;padding:1.75rem}
+.about-card h3{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--t);margin-bottom:1rem;font-weight:500}
+.about-card ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.about-card li{font-size:14px;color:var(--mid);display:flex;gap:.6rem;line-height:1.55}
+.about-card li::before{content:'→';color:var(--t);flex-shrink:0;margin-top:.05em}
+
+/* ── Contact strip ── */
+.contact-strip{
+  background:var(--sand);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:3.5rem 3rem;
+  text-align:center;
+}
+.contact-strip h2{margin-bottom:.65rem}
+.contact-strip .lede{font-size:16px;margin:0 auto 2rem;max-width:560px}
+.contact-links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+
+/* ── Footer ── */
+footer{padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:12px;color:var(--lite);margin:0}
+.fn{font-family:var(--serif);font-size:15px;font-weight:200;color:var(--ink)}
+
+/* ── Scroll reveal (JS-powered) ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── Mobile ── */
+@media(max-width:760px){
+  nav,footer,.contact-strip{padding-left:1.5rem;padding-right:1.5rem}
+  .hero,.section{padding-left:1.5rem;padding-right:1.5rem}
+  .hero-grid,.work-card,.work-card-soon,.practice-grid,.about-layout{grid-template-columns:1fr}
+  .section-divider{margin-left:1.5rem;margin-right:1.5rem}
+  .work-visual,.work-card-soon .work-visual{border-right:0;border-bottom:1px solid var(--border)}
+  nav ul{gap:1rem}
+  .dropdown-menu{left:auto;right:0;transform:translateY(8px)}
+  .has-dropdown:hover .dropdown-menu,.has-dropdown:focus-within .dropdown-menu{transform:translateY(0)}
+  .meta{grid-template-columns:1fr}
+  .hero::before{display:none}
+  .about-layout{gap:2.5rem}
+}
 </style>
 </head>
 <body>
+
+<!-- ── Nav ── -->
 <nav>
   <a class="nav-name" href="#top">Angela Chan</a>
   <ul>
@@ -94,31 +291,40 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify
         </a>
       </div>
     </li>
+    <li><a href="#practice">Approach</a></li>
     <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
+<!-- ── Hero ── -->
 <div class="hero" id="top">
   <div class="hero-grid">
     <div>
-      <div class="eyebrow">UX Research · HCI · Emerging Technology</div>
-      <h1>Researching how people interact with <em>complex systems</em></h1>
-      <p class="lede">I’m Angela “Skye” Chan, a UX researcher with a Ph.D. in Computer Science and 9+ years of experience studying human behavior in emerging technology contexts — including haptics, wearables, physiological sensing, healthcare systems, and real-time feedback experiences.</p>
-      <p class="lede">I use qualitative and quantitative research to help teams understand users, evaluate product experiences, and make confident decisions across the product lifecycle.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#work">View work →</a>
+      <div class="eyebrow fade-up delay-1">UX Research · HCI · Emerging Technology</div>
+      <h1 class="fade-up delay-2">Researching how people interact with <em>complex systems</em></h1>
+      <p class="lede fade-up delay-3">I'm Angela "Skye" Chan — a UX researcher with a Ph.D. in Computer Science and 9+ years studying human behavior in emerging tech: haptics, wearables, physiological sensing, healthcare systems, and real-time feedback experiences.</p>
+      <p class="lede fade-up delay-3">I use qualitative and quantitative research to help teams understand users, evaluate product experiences, and make confident decisions across the product lifecycle.</p>
+      <div class="cta-row fade-up delay-4">
+        <a class="btn btn-primary" href="#work">View case studies →</a>
         <a class="btn" href="#practice">Research approach</a>
       </div>
     </div>
-    <div class="hero-card">
-      <h2>What I’m strongest at</h2>
-      <p>Research across discovery, evaluative, and strategic product questions — especially when user behavior is complex, the system is technically constrained, or the team needs evidence to move forward.</p>
-      <div class="chips">
-        <span class="chip">Mixed methods</span>
-        <span class="chip">Product strategy</span>
-        <span class="chip">Experimentation</span>
-        <span class="chip">Behavioral analysis</span>
-        <span class="chip">Novel hardware</span>
+    <div class="fade-up delay-3">
+      <div class="hero-card">
+        <h2>What I do best</h2>
+        <p>Research across discovery, evaluative, and strategic product questions — especially when user behavior is complex, the system is technically constrained, or the team needs evidence to move forward.</p>
+        <div class="chips">
+          <span class="chip chip-accent">Mixed methods</span>
+          <span class="chip chip-accent">Product strategy</span>
+          <span class="chip chip-accent">Experimentation</span>
+          <span class="chip chip-accent">Behavioral analysis</span>
+          <span class="chip">Emerging technologies</span>
+        </div>
+        <div class="avail-badge">
+          <span class="avail-dot"></span>
+          Open to new opportunities
+        </div>
       </div>
     </div>
   </div>
@@ -126,55 +332,114 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify
 
 <div class="section-divider"></div>
 
+<!-- ── Work ── -->
 <section class="section" id="work">
-  <div class="s-tag">Selected work</div>
-  <h2>Case studies</h2>
-  <p class="intro-p">A selection of research-driven work focused on understanding user behavior, evaluating interaction models, and translating evidence into product direction.</p>
+  <div class="s-tag reveal">Selected work</div>
+  <h2 class="reveal">Case studies</h2>
+  <p class="intro-p reveal">A selection of research-driven work focused on understanding user behavior, evaluating interaction models, and translating evidence into product direction.</p>
 
-  <a class="work-card" href="ux_researcher_portfolio_telemedicine_revised_with_home.html">
-    <div class="work-visual">
-      <svg viewBox="0 0 300 260" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px">
-        <rect x="78" y="105" width="144" height="116" rx="24" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
-        <rect x="90" y="50" width="28" height="74" rx="14" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
-        <rect x="124" y="38" width="28" height="88" rx="14" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
-        <rect x="158" y="44" width="28" height="82" rx="14" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
-        <rect x="192" y="62" width="24" height="66" rx="12" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
-        <rect x="46" y="96" width="52" height="26" rx="13" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5" transform="rotate(-20 46 96)"/>
-        <circle cx="104" cy="58" r="6" fill="#C4622A" opacity=".9"/>
-        <circle cx="138" cy="46" r="6" fill="#C4622A" opacity=".9"/>
-        <circle cx="172" cy="52" r="6" fill="#C4622A" opacity=".9"/>
-        <circle cx="204" cy="70" r="6" fill="#C4622A" opacity=".7"/>
-        <path d="M138 174 Q168 151 180 174 Q192 197 162 206 Q132 215 120 192 Q108 169 138 174" stroke="#C4622A" stroke-width="1.5" fill="none" stroke-dasharray="4 3" opacity=".6"/>
-        <circle cx="110" cy="154" r="10" stroke="#C4622A" stroke-width="1.5" fill="none" opacity=".5"/>
-        <circle cx="110" cy="154" r="4" fill="#C4622A" opacity=".4"/>
-      </svg>
-    </div>
-    <div class="work-body">
-      <div class="work-kicker">UX Research Case Study · Medtech · Complex Systems</div>
-      <div class="work-title">Defining requirements for a haptic telemedicine system</div>
-      <p class="work-desc">How I used task analysis, expert validation, behavioral coding, and concept validation to translate clinical palpation behavior into a build-ready system direction.</p>
-      <div class="meta">
-        <div><div class="meta-label">Role</div><div class="meta-val">Senior UX Researcher / UX Research Lead</div></div>
-        <div><div class="meta-label">Partners</div><div class="meta-val">Texas A&M × Houston Methodist Hospital</div></div>
-        <div><div class="meta-label">Methods</div><div class="meta-val">Task analysis, expert interview, experimentation</div></div>
-        <div><div class="meta-label">Outcome</div><div class="meta-val">Build-ready MVP direction</div></div>
+  <div class="work-grid">
+    <!-- Case study 1 — live -->
+    <a class="work-card reveal" href="ux_researcher_portfolio_telemedicine_revised_with_home.html">
+      <div class="work-visual">
+        <svg viewBox="0 0 300 260" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px">
+          <rect x="78" y="105" width="144" height="116" rx="24" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
+          <rect x="90" y="50" width="28" height="74" rx="14" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
+          <rect x="124" y="38" width="28" height="88" rx="14" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
+          <rect x="158" y="44" width="28" height="82" rx="14" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
+          <rect x="192" y="62" width="24" height="66" rx="12" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
+          <rect x="46" y="96" width="52" height="26" rx="13" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5" transform="rotate(-20 46 96)"/>
+          <circle cx="104" cy="58" r="6" fill="#C4622A" opacity=".9"/>
+          <circle cx="138" cy="46" r="6" fill="#C4622A" opacity=".9"/>
+          <circle cx="172" cy="52" r="6" fill="#C4622A" opacity=".9"/>
+          <circle cx="204" cy="70" r="6" fill="#C4622A" opacity=".7"/>
+          <path d="M138 174 Q168 151 180 174 Q192 197 162 206 Q132 215 120 192 Q108 169 138 174" stroke="#C4622A" stroke-width="1.5" fill="none" stroke-dasharray="4 3" opacity=".6"/>
+          <circle cx="110" cy="154" r="10" stroke="#C4622A" stroke-width="1.5" fill="none" opacity=".5"/>
+          <circle cx="110" cy="154" r="4" fill="#C4622A" opacity=".4"/>
+        </svg>
+      </div>
+      <div class="work-body">
+        <div class="work-kicker">UX Research · Medtech · Complex Systems</div>
+        <div class="work-title">Defining requirements for a haptic telemedicine system</div>
+        <p class="work-desc">How I used task analysis, expert validation, behavioral coding, and concept validation to translate clinical palpation behavior into a build-ready system direction.</p>
+        <div class="meta">
+          <div><div class="meta-label">Role</div><div class="meta-val">Senior UX Researcher / Research Lead</div></div>
+          <div><div class="meta-label">Partners</div><div class="meta-val">Texas A&M × Houston Methodist Hospital</div></div>
+          <div><div class="meta-label">Methods</div><div class="meta-val">Task analysis, expert interview, experimentation</div></div>
+          <div><div class="meta-label">Outcome</div><div class="meta-val">Build-ready MVP direction</div></div>
+        </div>
+        <div class="work-arrow">Read case study →</div>
+      </div>
+    </a>
+
+    <!-- Case study 2 — coming soon -->
+    <div class="work-card-soon reveal">
+      <div class="work-visual">
+        <svg viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:220px">
+          <circle cx="120" cy="100" r="60" stroke="#D5C5B0" stroke-width="1.5" fill="none" stroke-dasharray="5 4"/>
+          <circle cx="120" cy="100" r="38" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
+          <path d="M100 100 Q110 84 120 100 Q130 116 140 100" stroke="#C4622A" stroke-width="2" fill="none" opacity=".5"/>
+          <circle cx="80" cy="72" r="8" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
+          <circle cx="160" cy="72" r="8" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
+          <line x1="88" y1="72" x2="112" y2="88" stroke="#D5C5B0" stroke-width="1"/>
+          <line x1="152" y1="72" x2="128" y2="88" stroke="#D5C5B0" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="work-body" style="display:flex;flex-direction:column">
+        <div class="work-kicker">UX Research · Haptics · Communication</div>
+        <div class="work-title" style="opacity:.5">Haptic communication between remote users</div>
+        <p class="work-desc" style="opacity:.5;margin-bottom:0">Researching how haptic feedback shapes emotional communication in remote interaction contexts.</p>
+        <div class="soon-label">Case study coming soon</div>
       </div>
     </div>
-  </a>
+
+    <!-- Case study 3 — coming soon -->
+    <div class="work-card-soon reveal">
+      <div class="work-visual">
+        <svg viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:220px">
+          <rect x="60" y="60" width="120" height="80" rx="14" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1.5"/>
+          <path d="M90 100 L100 88 L112 106 L122 80 L134 100" stroke="#C4622A" stroke-width="2" fill="none" opacity=".5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="90" cy="100" r="3" fill="#C4622A" opacity=".5"/>
+          <circle cx="134" cy="100" r="3" fill="#C4622A" opacity=".5"/>
+          <rect x="100" y="148" width="40" height="12" rx="4" fill="#EDE3D6" stroke="#D5C5B0" stroke-width="1"/>
+          <line x1="120" y1="140" x2="120" y2="148" stroke="#D5C5B0" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="work-body" style="display:flex;flex-direction:column">
+        <div class="work-kicker">UX Research · Digital Health / Telemedicine · Real-time Feedback</div>
+        <div class="work-title" style="opacity:.5">Real-time CPR guidance system</div>
+        <p class="work-desc" style="opacity:.5;margin-bottom:0">Evaluating how real-time biometric feedback changes lay-rescuer performance during cardiac emergencies.</p>
+        <div class="soon-label">Case study coming soon</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <div class="section-divider"></div>
 
+<!-- ── Practice ── -->
 <section class="section" id="practice">
-  <div class="s-tag">Research practice</div>
-  <h2>How I approach UX research</h2>
-  <p class="intro-p">I work across discovery, evaluative, and mixed-methods research — from understanding user needs and workflows to testing concepts, evaluating usability, and shaping product decisions.</p>
-  <div class="practice-grid">
-    <div class="practice-card"><h3>Frame the decision</h3><p>I start by clarifying what the team needs to learn or decide, then choose the right method and level of rigor for the question.</p></div>
-    <div class="practice-card"><h3>Build evidence</h3><p>I combine qualitative and quantitative research to understand both what users say and how they behave.</p></div>
-    <div class="practice-card"><h3>Translate to action</h3><p>I turn findings into product implications: what to improve, what to test next, where users need support, and which tradeoffs matter.</p></div>
+  <div class="s-tag reveal">Research practice</div>
+  <h2 class="reveal">How I approach UX research</h2>
+  <p class="intro-p reveal">I work across discovery, evaluative, and mixed-methods research — from understanding user needs and workflows to testing concepts, evaluating usability, and shaping product decisions.</p>
+  <div class="practice-grid reveal">
+    <div class="practice-card">
+      <div class="practice-num">01</div>
+      <h3>Frame the decision</h3>
+      <p>I start by clarifying what the team needs to learn or decide, then choose the right method and level of rigor for the question.</p>
+    </div>
+    <div class="practice-card">
+      <div class="practice-num">02</div>
+      <h3>Build evidence</h3>
+      <p>I combine qualitative and quantitative research to understand both what users say and how they behave.</p>
+    </div>
+    <div class="practice-card">
+      <div class="practice-num">03</div>
+      <h3>Translate to action</h3>
+      <p>I turn findings into product implications: what to improve, what to test next, where users need support, and which tradeoffs matter.</p>
+    </div>
   </div>
-  <div class="methods">
+  <div class="methods reveal">
     <span class="method">User interviews</span>
     <span class="method">Expert interviews</span>
     <span class="method">Usability testing</span>
@@ -190,35 +455,100 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify
 
 <div class="section-divider"></div>
 
+<!-- ── About ── -->
 <section class="section" id="about">
-  <div class="s-tag">About</div>
-  <h2>Research background</h2>
-  <p class="intro-p">My background is in Human-Computer Interaction, with a B.S., M.S., and Ph.D. in Computer Science. Across my research and applied work, the common thread has been understanding how people interact with complex technology — especially systems involving physiological sensing, haptics, hardware, real-time feedback, and healthcare workflows.</p>
-  <div class="about-grid">
-    <div class="about-card">
-      <h3>Research strengths</h3>
-      <ul>
-        <li>Mixed-methods research across qualitative and quantitative data</li>
-        <li>Experiment design, A/B testing, and controlled user studies</li>
-        <li>Behavioral and physiological signal interpretation</li>
-        <li>Product strategy and evidence-based decision-making</li>
-      </ul>
+  <div class="s-tag reveal">About</div>
+  <h2 class="reveal">Research background</h2>
+  <div class="about-layout">
+    <div class="about-copy reveal">
+      <p class="intro-p">My background is in Human-Computer Interaction, with a B.S., M.S., and Ph.D. in Computer Science. Across my research and applied work, the common thread has been understanding how people interact with complex technology — especially systems involving physiological sensing, haptics, hardware, and real-time feedback.</p>
+      <p class="intro-p">I've worked at the intersection of academic research and applied product development, translating domain expertise into user insights that guide engineering and design decisions.</p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">Ph.D.</div>
+          <div class="tl-body">
+            <h4>Computer Science — HCI focus</h4>
+            <p>Haptic interfaces, multimodal data, real-time interaction systems, user-centered design</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">M.S.</div>
+          <div class="tl-body">
+            <h4>Computer Science — HCI focus</h4>
+            <p>Emerging technologies, real-time feedback, multimodal interaction</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">B.S.</div>
+          <div class="tl-body">
+            <h4>Computer Science</h4>
+            <p>Foundation in systems, algorithms, and HCI fundamentals</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">9+ yrs</div>
+          <div class="tl-body">
+            <h4>Applied UX research</h4>
+            <p>Complex systems, user-centered design, healthcare technology, emerging interaction paradigms</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="about-card">
-      <h3>Domains</h3>
-      <ul>
-        <li>Healthcare and telemedicine</li>
-        <li>Wearables and haptic interfaces</li>
-        <li>Remote interaction and communication systems</li>
-        <li>AI-enabled and sensor-based product experiences</li>
-      </ul>
+
+    <div class="about-cards reveal">
+      <div class="about-card">
+        <h3>Research strengths</h3>
+        <ul>
+          <li>Mixed-methods research across qualitative and quantitative data</li>
+          <li>Experiment design, A/B testing, and controlled user studies</li>
+          <li>Behavioral and physiological signal interpretation</li>
+          <li>Product strategy and evidence-based decision-making</li>
+        </ul>
+      </div>
+      <div class="about-card">
+        <h3>Domains</h3>
+        <ul>
+          <li>Emerging technologies and interactive systems</li>
+          <li>Healthcare and telemedicine</li>
+          <li>Wearables and haptic interfaces</li>
+          <li>AI-enabled and sensor-based product experiences</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
+
+<div class="section-divider"></div>
+
+<!-- ── Contact ── -->
+<div class="contact-strip" id="contact">
+  <div class="s-tag reveal" style="justify-content:center">Get in touch</div>
+  <h2 class="reveal">Interested in working together?</h2>
+  <p class="lede reveal">I'm open to full-time roles, consulting engagements, and research collaborations — particularly in complex systems, healthcare, and emerging technology.</p>
+  <div class="contact-links reveal">
+    <a class="btn btn-primary" href="mailto:angela.tze.chan@gmail.com">Send an email →</a>
+    <a class="btn" href="https://linkedin.com/in/angela-tze-chan" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</div>
 
 <footer>
   <span class="fn">Angela Chan</span>
   <p>UX Research Portfolio · Austin, TX</p>
 </footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
