@@ -44,14 +44,14 @@ nav{
 }
 .nav-name{font-family:var(--serif);font-size:15px;color:var(--ink);text-decoration:none;font-weight:200;letter-spacing:.02em;transition:color .2s}
 .nav-name:hover{color:var(--t)}
-nav ul{display:flex;gap:2rem;list-style:none;align-items:center}
-nav li{position:relative}
+nav ul{display:flex;gap:2rem;list-style:none;align-items:center;height:100%}
+nav li{position:relative;display:flex;align-items:center;height:100%}
 nav a{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--lite);text-decoration:none;transition:color .2s}
 nav a:hover{color:var(--t)}
 .has-dropdown>a::after{content:'⌄';font-size:10px;margin-left:.35rem;color:var(--lite)}
-.has-dropdown{padding-bottom:8px}
+.has-dropdown::before{content:'';position:absolute;bottom:0;left:0;right:0;height:12px}
 .dropdown-menu{
-  position:absolute;top:100%;left:50%;
+  position:absolute;top:calc(100% + 1px);left:50%;
   transform:translateX(-50%);
   min-width:240px;
   background:rgba(253,250,246,.99);
@@ -302,9 +302,8 @@ footer p{font-size:12px;color:var(--lite);margin:0}
   <div class="hero-grid">
     <div>
       <div class="eyebrow fade-up delay-1">UX Research · HCI · Emerging Technology</div>
-      <h1 class="fade-up delay-2">Researching how people interact with <em>complex systems</em></h1>
-      <p class="lede fade-up delay-3">I'm Angela "Skye" Chan — a UX researcher with a Ph.D. in Computer Science and 9+ years of experience studying how people interact with emerging technologies and complex systems.</p>
-      <p class="lede fade-up delay-3">I use qualitative and quantitative research to help teams understand user behavior, evaluate product experiences, and make confident, evidence-based decisions.</p>
+      <h1 class="fade-up delay-2">Hi, I'm Skye — I use research to turn complex user behavior into <em>clear product direction</em></h1>
+      <p class="lede fade-up delay-3">I’m a mixed-methods UX researcher with a Ph.D. in Computer Science and 9+ years of experience studying how people interact with emerging technologies, complex systems, and new product experiences.<br><br>My work combines qualitative research, experimentation, and behavioral analysis to help teams understand users, evaluate ideas, and make confident product decisions.</p>
       <div class="cta-row fade-up delay-4">
         <a class="btn btn-primary" href="#work">View case studies →</a>
         <a class="btn" href="#about">About me</a>
