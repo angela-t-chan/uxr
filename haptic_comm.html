@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haptic Communication · Angela Chan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,600;0,9..144,800;1,9..144,200;1,9..144,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --t:#C4622A;--td:#8A3E15;--tl:#F0DDD0;--tp:#FAF4EF;
+  --sand:#F4ECE2;--sand2:#EDE3D6;
+  --ww:#FDFAF6;--ink:#18110A;--mid:#4A3820;--lite:#9A836A;
+  --border:#E5D5C0;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--ww);color:var(--ink);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+/* ── Animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .7s cubic-bezier(.22,1,.36,1) both}
+.delay-1{animation-delay:.1s}.delay-2{animation-delay:.22s}.delay-3{animation-delay:.36s}.delay-4{animation-delay:.5s}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── Nav ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(253,250,246,.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:58px;
+}
+.nav-name{font-family:var(--serif);font-size:15px;color:var(--ink);text-decoration:none;font-weight:200;letter-spacing:.02em;transition:color .2s}
+.nav-name:hover{color:var(--t)}
+nav ul{display:flex;gap:2rem;list-style:none;align-items:center}
+nav a{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--lite);text-decoration:none;transition:color .2s}
+nav a:hover{color:var(--t)}
+.nav-back{display:inline-flex;align-items:center;gap:.4rem;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--lite);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--t)}
+.nav-back::before{content:'←';font-size:12px}
+
+/* ── Hero ── */
+.hero{padding:6rem 3rem 4.5rem;max-width:1100px;margin:0 auto}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t);margin-bottom:1.5rem;display:flex;align-items:center;gap:.65rem}
+.eyebrow::before{content:'';display:inline-block;width:24px;height:1px;background:var(--t);flex-shrink:0}
+h1{font-family:var(--serif);font-size:clamp(2.8rem,5vw,4.8rem);font-weight:800;line-height:.98;letter-spacing:-.04em;color:var(--ink);margin-bottom:1.75rem}
+h1 em{font-style:italic;font-weight:200;color:var(--t)}
+.lede{font-size:17px;color:var(--mid);line-height:1.85;font-weight:300;max-width:680px;margin-bottom:0}
+
+/* ── Meta bar ── */
+.meta-bar{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  margin-top:3.5rem;
+}
+.meta-cell{background:var(--ww);padding:1.35rem 1.5rem}
+.meta-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--lite);margin-bottom:.3rem}
+.meta-val{font-size:13px;color:var(--ink);line-height:1.45}
+
+/* ── Stat callout ── */
+.stat-strip{
+  display:flex;gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  margin-top:1.5rem;
+}
+.stat-cell{background:var(--sand);padding:1.75rem 2rem;flex:1;text-align:center}
+.stat-big{font-family:var(--serif);font-size:3rem;font-weight:800;color:var(--t);line-height:1;display:block;margin-bottom:.3rem}
+.stat-label{font-size:13px;color:var(--mid);line-height:1.45}
+
+/* ── Divider / Section ── */
+.section-divider{height:1px;background:var(--border);margin:0 3rem}
+.section{padding:5rem 3rem;max-width:1100px;margin:0 auto}
+.s-tag{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t);margin-bottom:.85rem;display:flex;align-items:center;gap:.65rem}
+.s-tag::before{content:'';display:inline-block;width:18px;height:1px;background:var(--t);flex-shrink:0}
+h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.65rem);font-weight:600;line-height:1.1;letter-spacing:-.02em;margin-bottom:1.25rem}
+h3{font-size:14px;font-weight:500;margin-bottom:.4rem;color:var(--ink)}
+p{color:var(--mid);margin-bottom:1rem;font-size:15px}
+.intro-p{font-size:16px;color:var(--mid);line-height:1.85;margin-bottom:1.25rem;max-width:780px}
+strong{color:var(--ink);font-weight:500}
+
+/* ── Cards ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.25rem}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:2.25rem}
+.card{background:var(--ww);border:1px solid var(--border);border-radius:16px;padding:2rem}
+.card.sand{background:var(--sand)}
+.card h3{font-family:var(--serif);font-size:1.1rem;font-weight:600;margin-bottom:.65rem}
+.card p{font-size:13.5px;color:var(--mid);line-height:1.65;margin:0}
+
+/* ── Research questions ── */
+.rq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:16px;overflow:hidden;margin-top:2.5rem}
+.rq-card{background:var(--ww);padding:2rem}
+.rq-num{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--t);font-weight:500;margin-bottom:.5rem}
+.rq-card h3{font-family:var(--serif);font-size:1.05rem;font-weight:600;line-height:1.25;margin-bottom:.5rem}
+.rq-card p{font-size:13px;color:var(--lite);line-height:1.55;margin:0}
+
+/* ── Process steps ── */
+.process{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border-radius:16px;overflow:hidden;margin-top:2.5rem}
+.step{background:var(--ww);padding:1.6rem}
+.step-num{font-family:var(--serif);font-size:2.2rem;font-weight:800;color:var(--tl);line-height:1;margin-bottom:.65rem}
+.step h3{font-size:13px;font-weight:600;margin-bottom:.35rem;color:var(--ink)}
+.step p{font-size:12.5px;color:var(--lite);line-height:1.5;margin:0}
+
+/* ── Study design ── */
+.study-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2.5rem;align-items:start;margin-top:2.5rem}
+.sessions{display:flex;flex-direction:column;gap:.75rem}
+.session{background:var(--ww);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem}
+.session-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--t);font-weight:500;margin-bottom:.3rem}
+.session p{font-size:13px;color:var(--mid);line-height:1.55;margin:0}
+.data-list{display:flex;flex-direction:column;gap:.55rem}
+.data-item{font-size:13px;color:var(--mid);background:var(--ww);border:1px solid var(--border);border-radius:9px;padding:.7rem .9rem;display:flex;align-items:flex-start;gap:.6rem}
+.data-item::before{content:'·';color:var(--t);font-size:18px;line-height:1;flex-shrink:0;margin-top:-.05em}
+
+/* ── Analysis methods ── */
+.analysis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:16px;overflow:hidden;margin-top:2rem}
+.analysis-card{background:var(--ww);padding:1.75rem}
+.analysis-card h3{font-size:13.5px;font-weight:600;margin-bottom:.4rem;color:var(--ink)}
+.analysis-card p{font-size:13px;color:var(--lite);line-height:1.55;margin:0}
+
+/* ── Findings ── */
+.findings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:16px;overflow:hidden;margin-top:2.5rem}
+.finding{background:var(--ww);padding:2rem}
+.finding-big{font-family:var(--serif);font-size:3rem;font-weight:800;line-height:1;color:var(--t);margin-bottom:.55rem}
+.finding h3{font-family:var(--serif);font-size:1.1rem;font-weight:600;line-height:1.2;margin-bottom:.55rem}
+.finding p{font-size:13px;color:var(--lite);line-height:1.55;margin:0}
+
+.themes{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-top:1.75rem}
+.theme{background:var(--tp);border:1px solid rgba(196,98,42,.22);border-radius:12px;padding:1rem 1.1rem;font-size:13px;color:var(--td);font-weight:500;line-height:1.35}
+
+.insight-list{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2rem}
+.insight{background:var(--ww);border:1px solid var(--border);border-radius:14px;padding:1.6rem}
+.insight-num{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t);font-weight:500;margin-bottom:.4rem}
+.insight h3{font-size:14px;font-weight:600;margin-bottom:.4rem;color:var(--ink)}
+.insight p{font-size:13px;color:var(--mid);line-height:1.6;margin:0}
+
+/* ── Callout ── */
+.callout{background:var(--tp);border-left:3px solid var(--t);border-radius:0 12px 12px 0;padding:1.35rem 1.6rem;margin:2rem 0}
+.callout p{font-size:15px;color:var(--ink);margin:0;line-height:1.7;font-style:italic}
+
+/* ── Publications ── */
+.pubs{display:flex;flex-direction:column;gap:.75rem;margin-top:.5rem}
+.pub{font-size:13px;color:var(--mid);line-height:1.6;border-top:1px solid var(--border);padding-top:.75rem}
+.pub:first-child{border-top:0;padding-top:0}
+
+/* ── RQ Answers ── */
+.rq-answers{display:flex;flex-direction:column;gap:1px;background:var(--border);border-radius:18px;overflow:hidden;margin-top:2.5rem}
+.rqa-card{background:var(--ww);padding:2rem 2.25rem}
+.rqa-card:hover{background:var(--sand)}
+.rqa-header{display:flex;align-items:baseline;gap:1rem;margin-bottom:.9rem}
+.rqa-label{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--t);background:var(--tp);border:1px solid rgba(196,98,42,.25);border-radius:100px;padding:3px 10px;flex-shrink:0}
+.rqa-q{font-family:var(--serif);font-size:1.15rem;font-weight:600;color:var(--ink);line-height:1.2}
+.rqa-answer{font-size:14.5px;color:var(--mid);line-height:1.75;margin-bottom:0}
+.rqa-verdict{font-weight:500;color:var(--ink)}
+.rqa-taxonomy{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.1rem}
+.tax-group{background:var(--sand);border:1px solid var(--border);border-radius:12px;padding:1rem 1.15rem}
+.tax-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t);margin-bottom:.4rem}
+.tax-group p{font-size:13px;color:var(--mid);line-height:1.55;margin:0}
+.rqa-note{font-size:13px;color:var(--lite);line-height:1.6;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);font-style:italic}
+
+
+.methods{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:2rem}
+.method{font-size:12px;padding:5px 15px;border-radius:100px;border:1px solid var(--border);color:var(--mid);background:var(--ww)}
+
+/* ── Footer ── */
+footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:12px;color:var(--lite);margin:0}
+.fn{font-family:var(--serif);font-size:15px;font-weight:200;color:var(--ink)}
+
+/* ── Mobile ── */
+@media(max-width:860px){
+  nav,footer{padding-left:1.5rem;padding-right:1.5rem}
+  .hero,.section{padding-left:1.5rem;padding-right:1.5rem}
+  .section-divider{margin-left:1.5rem;margin-right:1.5rem}
+  .meta-bar,.stat-strip,.rq-grid,.process,.findings-grid,.analysis-grid,.themes{grid-template-columns:1fr;gap:1px}
+  .two-col,.three-col,.study-grid,.insight-list,.rqa-taxonomy{grid-template-columns:1fr}
+  nav ul{gap:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <a class="nav-name" href="index_improved.html">Angela Chan</a>
+  <ul>
+    <li><a class="nav-back" href="index_improved.html#work">All work</a></li>
+    <li><a href="#context">Context</a></li>
+    <li><a href="#study">Study</a></li>
+    <li><a href="#findings">Findings</a></li>
+    <li><a href="#impact">Impact</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero" id="top">
+  <div class="eyebrow fade-up delay-1">UX Research · Haptic Communication · Mixed Methods</div>
+  <h1 class="fade-up delay-2">Remote touch during <em>difficult conversations</em></h1>
+  <p class="lede fade-up delay-3">An NSF-funded study examining whether tactile feedback could make video calls more emotionally supportive. I led the research end to end — study design, data collection, multimodal analysis, and product implications.</p>
+
+  <div class="meta-bar fade-up delay-4">
+    <div class="meta-cell">
+      <div class="meta-label">Role</div>
+      <div class="meta-val">Lead UX Researcher / PhD Researcher</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Participants</div>
+      <div class="meta-val">20 romantic couples participating remotely</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Methods</div>
+      <div class="meta-val">Mixed methods: interviews, behavioral coding, surveys, physiological sensing, sentiment analysis</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Funding</div>
+      <div class="meta-val">NSF-funded research, Texas A&amp;M University</div>
+    </div>
+  </div>
+
+  <div class="stat-strip fade-up delay-4">
+    <div class="stat-cell">
+      <span class="stat-big">44%</span>
+      <span class="stat-label">reduction in emotional arousal when remote touch was available during difficult conversations</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-big">4</span>
+      <span class="stat-label">recurring experience themes identified across qualitative and quantitative data</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-big">1,200</span>
+      <span class="stat-label">minutes of conversation analyzed to understand when and why participants used remote touch</span>
+    </div>
+  </div>
+</header>
+
+<div class="section-divider"></div>
+
+<!-- ── Context ── -->
+<section class="section" id="context">
+  <div class="s-tag reveal">Context</div>
+  <h2 class="reveal">Touch is a communication channel. Video calls don't have one.</h2>
+  <p class="intro-p reveal">Touch carries signals that words and facial expressions can't easily replicate — reassurance, care, tension repair, and shared presence. For people who rely on remote communication to maintain close relationships, that gap matters.</p>
+  <p class="intro-p reveal">I focused on a deliberately demanding scenario: romantic partners navigating emotionally charged conversations while physically apart. This created a realistic test of whether mediated touch could provide meaningful support when emotional stakes are high.</p>
+
+  <div class="rq-grid reveal">
+    <div class="rq-card">
+      <div class="rq-num">Research question 01</div>
+      <h3>Does remote touch change affect?</h3>
+      <p>Does tactile feedback shift participants' emotional state or physiological arousal during a difficult conversation?</p>
+    </div>
+    <div class="rq-card">
+      <div class="rq-num">Research question 02</div>
+      <h3>How do people use touch in context?</h3>
+      <p>What moments, intentions, and conversational cues lead people to send or respond to remote touch?</p>
+    </div>
+    <div class="rq-card">
+      <div class="rq-num">Research question 03</div>
+      <h3>What should future systems support?</h3>
+      <p>What do observed behaviors tell us about the design requirements for emotionally aware communication tools?</p>
+    </div>
+  </div>
+
+  <p class="intro-p reveal" style="margin-top:2rem">For a product team, this study answered a practical design question: whether haptics should be treated as a novelty feature, or as a meaningful communication channel with its own interaction rules. The goal was not only to measure emotional impact, but to understand what kinds of tactile interactions future communication systems should support.</p>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── My role ── -->
+<section class="section" id="role">
+  <div class="s-tag reveal">My role</div>
+  <h2 class="reveal">I led the research from framing to design direction</h2>
+  <p class="intro-p reveal">I led the research from initial framing through synthesis and communication. Because the team was small, I was responsible not only for execution, but also for deciding how to structure the study, what evidence to prioritize, and how to translate findings into design direction.</p>
+
+  <div class="process reveal">
+    <div class="step"><div class="step-num">01</div><h3>Frame</h3><p>Defined research goals, participant criteria, and study protocol.</p></div>
+    <div class="step"><div class="step-num">02</div><h3>Run</h3><p>Facilitated remote sessions with couples participating from separate locations.</p></div>
+    <div class="step"><div class="step-num">03</div><h3>Capture</h3><p>Collected video, audio, touch logs, surveys, interviews, and physiological signals.</p></div>
+    <div class="step"><div class="step-num">04</div><h3>Analyze</h3><p>Applied thematic coding, quantitative analysis, physiological measurement, and sentiment analysis.</p></div>
+    <div class="step"><div class="step-num">05</div><h3>Translate</h3><p>Delivered findings, annotated examples, and design implications for future systems.</p></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── Study design ── -->
+<section class="section" id="study">
+  <div class="s-tag reveal">Study design</div>
+  <h2 class="reveal">A controlled study of touch in emotionally charged video calls</h2>
+  <p class="intro-p reveal">I recruited 20 adult romantic couples who had been together for at least one year. Each partner joined from a separate location. Couples completed two discussion sessions — one with the remote touch device available and one without — enabling a direct comparison of the communication experience with and without tactile feedback.</p>
+
+  <div class="study-grid reveal">
+    <div class="sessions">
+      <div class="session"><div class="session-label">Emotional setup</div><p>Each partner watched the same 15-minute video clip featuring relationship and work-life themes to establish shared conversational context.</p></div>
+      <div class="session"><div class="session-label">Discussion task</div><p>Couples discussed semi-structured prompts designed to surface emotionally meaningful topics — for example, the difference between taking a break and breaking up.</p></div>
+      <div class="session"><div class="session-label">Touch condition</div><p>In one session, partners could exchange tactile cues through a wearable remote touch device while on the video call.</p></div>
+      <div class="session"><div class="session-label">Reflection</div><p>Participants completed PANAS surveys and in-depth interviews covering affect, connection, communication quality, and perceived role of touch.</p></div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--serif);font-size:1.1rem;margin-bottom:1.1rem;color:var(--ink)">Data collected</h3>
+      <div class="data-list">
+        <div class="data-item">Audio and video recordings of all sessions</div>
+        <div class="data-item">Touch exchange logs with timing and duration</div>
+        <div class="data-item">Pre- and post-session PANAS affect surveys</div>
+        <div class="data-item">Post-session interview transcripts</div>
+        <div class="data-item">Physiological data via E4 Empatica wristbands</div>
+        <div class="data-item">Conversation transcripts for sentiment analysis</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="analysis-grid reveal">
+    <div class="analysis-card">
+      <h3>Behavioral coding</h3>
+      <p>I labeled touch intent by reviewing conversational context, facial expression, tone, timing, and touch duration and intensity.</p>
+    </div>
+    <div class="analysis-card">
+      <h3>Quantitative analysis</h3>
+      <p>I analyzed affective survey responses and physiological signals to measure changes in emotional arousal across conditions.</p>
+    </div>
+    <div class="analysis-card">
+      <h3>Sentiment analysis</h3>
+      <p>I coded approximately 1,200 minutes of conversation transcript to connect touch behavior with emotional tone in the dialogue.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── Findings ── -->
+<section class="section" id="findings">
+  <div class="s-tag reveal">Findings</div>
+  <h2 class="reveal">The value of remote touch depended on timing, intent, and conversational context</h2>
+  <p class="intro-p reveal">Participants didn't treat touch as a supplementary feature. They used it in specific conversational moments — to reassure, soften tension, signal affection, or feel more present with their partner. The data showed consistent patterns across both subjective experience and physiological response.</p>
+
+  <div class="findings-grid reveal">
+    <div class="finding">
+      <div class="finding-big">44%</div>
+      <h3>Reduction in emotional arousal</h3>
+      <p>Measured via electrodermal activity from E4 Empatica wristbands. The effect was consistent across participants and strongest during moments of tension or emotional disclosure — not just during high-frequency touch use.</p>
+    </div>
+    <div class="finding">
+      <div class="finding-big">60+</div>
+      <h3>Distinct touch intentions identified</h3>
+      <p>Behavioral coding revealed over 60 touch intentions, grouped into affective uses (reassurance, care, affection, repair) and non-affective uses (acknowledgment, agreement, conversational pacing).</p>
+    </div>
+    <div class="finding">
+      <div class="finding-big">4</div>
+      <h3>Recurring experience themes</h3>
+      <p>Across interviews and surveys, participants consistently described remote touch as enhancing presence, deepening connection, amplifying emotional meaning, and adding a new interaction channel to the conversation.</p>
+    </div>
+  </div>
+
+  <div class="themes reveal">
+    <div class="theme">Enhanced presence of the partner</div>
+    <div class="theme">Improved connection with partner</div>
+    <div class="theme">Amplified emotion or meaning</div>
+    <div class="theme">Additional channel of interaction</div>
+  </div>
+
+  <!-- RQ answers -->
+  <div class="rq-answers reveal">
+    <div class="rqa-card">
+      <div class="rqa-header">
+        <span class="rqa-label">RQ01</span>
+        <span class="rqa-q">Does remote touch change affect?</span>
+      </div>
+      <div class="rqa-answer">
+        <span class="rqa-verdict">Yes.</span> Physiological data showed a 44% reduction in emotional arousal in the touch condition. Participants also reported higher perceived connection and communication quality in post-session surveys, consistent with the physiological signal.
+      </div>
+    </div>
+    <div class="rqa-card">
+      <div class="rqa-header">
+        <span class="rqa-label">RQ02</span>
+        <span class="rqa-q">How do people use touch in context?</span>
+      </div>
+      <div class="rqa-answer">
+        <span class="rqa-verdict">Intentionally and co-verbally.</span> Touch was used as emotional punctuation — a way to reinforce, soften, or respond to what was already being said, rather than as a standalone signal. Behavioral coding identified <strong>over 60 distinct touch intentions</strong>, grouped into two categories:
+      </div>
+      <div class="rqa-taxonomy">
+        <div class="tax-group">
+          <div class="tax-label">Affective</div>
+          <p>Touch tied to emotional expression — reassurance, care, affection, tension repair, shared presence.</p>
+        </div>
+        <div class="tax-group">
+          <div class="tax-label">Non-affective</div>
+          <p>Touch used functionally — acknowledgment, agreement, attention, conversational pacing.</p>
+        </div>
+      </div>
+      <div class="rqa-note">Context mattered more than frequency. The emotional value of a touch exchange depended on when it occurred relative to the conversation — not simply how often touch was used.</div>
+    </div>
+    <div class="rqa-card">
+      <div class="rqa-header">
+        <span class="rqa-label">RQ03</span>
+        <span class="rqa-q">What should future systems support?</span>
+      </div>
+      <div class="rqa-answer">
+        <span class="rqa-verdict">Expressive control and context-awareness.</span> Participants valued touch when it felt intentional, timely, and emotionally appropriate — not generic or mechanical. The design opportunity is not simply adding a haptic channel, but building systems where timing, intent, and nuance are part of the interaction model.
+      </div>
+    </div>
+  </div>
+
+  <div class="s-tag reveal" style="margin-top:3rem">Design recommendations</div>
+  <div class="insight-list reveal">
+    <div class="insight">
+      <div class="insight-num">Recommendation 01</div>
+      <h3>Make touch lightweight and conversation-adjacent</h3>
+      <p>Users should be able to send tactile cues without interrupting the video call or shifting attention away from the conversation.</p>
+    </div>
+    <div class="insight">
+      <div class="insight-num">Recommendation 02</div>
+      <h3>Prioritize intentional touch over frequent touch</h3>
+      <p>The value came from touch being timely and meaningful, not from high usage volume. Future systems should avoid encouraging constant haptic interaction.</p>
+    </div>
+    <div class="insight">
+      <div class="insight-num">Recommendation 03</div>
+      <h3>Preserve expressive control</h3>
+      <p>Because meaning depended on timing, intensity, and relationship context, users need control over when and how touch is sent rather than generic automated feedback.</p>
+    </div>
+    <div class="insight">
+      <div class="insight-num">Recommendation 04</div>
+      <h3>Design for emotionally sensitive moments</h3>
+      <p>Remote touch is most valuable when it supports reassurance, repair, affection, or shared presence during emotionally meaningful conversations.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── Impact ── -->
+<section class="section" id="impact">
+  <div class="s-tag reveal">Impact</div>
+  <h2 class="reveal">From research findings to product direction</h2>
+  <p class="intro-p reveal">The study showed that mediated touch can function as a meaningful communication channel in emotionally sensitive remote interactions. For product and design teams, the implication extends beyond haptics: nonverbal signals have measurable emotional value, and communication tools can be designed to support them.</p>
+
+  <div class="three-col reveal">
+    <div class="card">
+      <h3>Design impact</h3>
+      <p>The findings translated into concrete design principles for emotionally supportive communication tools: keep nonverbal signals lightweight, preserve user control, and design around timing and intent rather than novelty.</p>
+    </div>
+    <div class="card">
+      <h3>Research impact</h3>
+      <p>I developed a multimodal evaluation approach that combined self-report, behavioral observation, conversational analysis, and physiological measurement. This made it possible to evaluate emotional experience with more depth than any single method would allow.</p>
+    </div>
+    <div class="card">
+      <h3>Scholarly impact</h3>
+      <p>The work contributed to peer-reviewed research on remote touch communication and established a foundation for future studies on emotionally resonant digital communication systems.</p>
+    </div>
+  </div>
+
+  <div class="card sand reveal" style="margin-top:1.5rem">
+    <h3>Selected scholarly outputs</h3>
+    <div class="pubs">
+      <div class="pub">Chan, Angela. <em>Exploring the Use and Affective Impact of Contextualized Remote Social Touch Communication.</em> Dissertation, Texas A&M University, 2024.</div>
+      <div class="pub">Chan, A., Quek, F., Yamauchi, T., and Seo, J. H. "Co-Verbal Touch: Enriching Video Telecommunications with Remote Touch Technology." ACM International Conference on Multimodal Interaction, 2021.</div>
+      <div class="pub">Chan, A., Quek, F., Panchal, H., Howell, J., Yamauchi, T., &amp; Seo, J. H. "The Effect of Co-Verbal Remote Touch on Electrodermal Activity and Emotional Response in Dyadic Discourse." <em>Sensors</em>, 2021.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── Closing ── -->
+<section class="section">
+  <div class="s-tag reveal">More work</div>
+  <h2 class="reveal">Research that moves teams forward</h2>
+  <p class="intro-p reveal">This project is one example of how I work: I frame ambiguous human questions, build rigorous studies around them, and connect qualitative and quantitative evidence into findings teams can act on — whether the context is emerging technology, healthcare, or complex product decisions.</p>
+  <div style="margin-top:2rem" class="reveal">
+    <a href="index_improved.html#work" style="display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;border-radius:100px;padding:.75rem 1.35rem;font-size:12px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;border:1px solid var(--border);color:var(--ink);background:var(--ww);transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 14px rgba(74,56,32,.09)'" onmouseout="this.style.transform='';this.style.boxShadow=''">← Back to all work</a>
+  </div>
+</section>
+
+<footer>
+  <span class="fn">Angela Chan</span>
+  <p>UX Research Portfolio · Austin, TX</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
