@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UX Research Case Study · Haptic Telemedicine Glove· Angela Chan</title>
+<title>UX Research Case Study · Remote Clinical Exam Tool · Angela Chan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,600;0,9..144,800;1,9..144,200;1,9..144,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
@@ -62,9 +62,9 @@ h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;l
 </head>
 <body>
 <nav>
-  <a class="nav-name" href="index.html">Angela Chan</a>
+  <a class="nav-name" href="index_revised.html">Angela Chan</a>
   <ul>
-    <li><a class="nav-back" href="index.html#work">All work</a></li>
+    <li><a class="nav-back" href="index_revised.html#work">All work</a></li>
     <li><a href="#overview">Overview</a></li>
     <li><a href="#research">Research</a></li>
     <li><a href="#findings">Findings</a></li>
@@ -78,17 +78,17 @@ h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;l
     <div class="hero-left">
       <div class="hero-chips fade-up delay-1">
         <span class="chip chip-accent">UX Research Case Study</span>
-        <span class="chip">Medtech · 0→1</span>
-        <span class="chip">Mixed Methods</span>
+        <span class="chip">Medtech · 0→1 Product Definition</span>
+        <span class="chip">MVP Requirements</span>
       </div>
-      <h1 class="fade-up delay-2">Defining a<br><em>haptic telemedicine glove</em><br>system</h1>
+      <h1 class="fade-up delay-2">Defining MVP<br><em>requirements</em><br>for remote clinical exams</h1>
       <div class="hero-meta fade-up delay-3">
         <div class="meta-row">
           <div class="meta-item"><div class="meta-label">Role</div><div class="meta-val">Senior UX Researcher / UX Research Lead</div></div>
-          <div class="meta-item"><div class="meta-label">Stage</div><div class="meta-val">Pre-build · 0→1 product definition</div></div>
+          <div class="meta-item"><div class="meta-label">Stage</div><div class="meta-val">Pre-build · 0→1 MVP definition</div></div>
         </div>
         <div class="meta-row">
-          <div class="meta-item"><div class="meta-label">Methods</div><div class="meta-val">Task analysis, expert interview, behavioral coding, concept validation / experimentation</div></div>
+          <div class="meta-item"><div class="meta-label">Methods</div><div class="meta-val">Workflow analysis, expert interview, behavioral coding, concept validation</div></div>
           <div class="meta-item"><div class="meta-label">Partners</div><div class="meta-val">Texas A&M × Houston Methodist Hospital</div></div>
         </div>
       </div>
@@ -116,24 +116,24 @@ h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;l
       </svg>
     </div>
   </div>
-  <p class="hero-lede fade-up delay-4">I led research to turn an ambiguous haptic telemedicine concept into a clinically grounded, build-ready product direction. The work defined what the MVP needed to sense, what it could safely defer, and where the system had to remain flexible to preserve clinical decision-making.</p>
+  <p class="hero-lede fade-up delay-4">I led generative research to turn an ambiguous remote physical-exam concept into a clinically grounded MVP direction. The work clarified what a first version needed to capture, what could safely wait, and which workflow constraints the product could not violate.</p>
 </div>
 
 <div class="section-divider" style="margin-top:3rem"></div>
 
 <section class="section" id="overview">
   <div class="s-tag reveal">Overview</div>
-  <h2 class="reveal">The research challenge</h2>
-  <p class="intro-p reveal">The concept was a remote palpation system: an on-site clinician performs a neck and thyroid exam while wearing haptic sensors, and a remote specialist receives corresponding tactile feedback while watching the live video feed.</p>
-  <p class="reveal">The team did not yet know what the system needed to capture for the experience to be clinically meaningful. Before engineering could build and before design could define the interface, we needed evidence about the clinical behavior itself.</p>
+  <h2 class="reveal">The challenge</h2>
+  <p class="intro-p reveal">The product concept was a remote physical-exam system: an on-site clinician performs a neck and thyroid exam while wearing sensorized gloves, and a remote specialist receives corresponding tactile feedback while watching the live video feed.</p>
+  <p class="reveal">The team did not yet know what the product needed to capture for the experience to be clinically meaningful. Before engineering invested in sensors or design defined the interface, we needed to understand the real clinical workflow and where simplification would create risk.</p>
 
   <div class="research-brief reveal">
     <div class="brief-card">
-      <h3>My research objective</h3>
+      <h3>What I needed to clarify</h3>
       <ul class="brief-list">
         <li>Identify the core palpation motions needed for a first version of the system.</li>
         <li>Understand which parts of clinician technique were flexible, adaptive, and clinically important.</li>
-        <li>Translate clinical behavior into product requirements that engineering could build from.</li>
+        <li>Translate clinical behavior into MVP requirements that engineering could build from.</li>
         <li>Resolve scope tradeoffs between clinical fidelity and technical feasibility.</li>
       </ul>
     </div>
@@ -152,40 +152,43 @@ h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;l
     <div class="ts-node"><div class="ts-who">Patients</div><h3>Need a clinically safe, accurate, and reliable system</h3><p>The system needed to support remote specialist access without compromising the safety, accuracy, or reliability of the physical exam.</p></div>
     <div class="ts-node"><div class="ts-who">Clinicians</div><h3>Need adaptive freedom</h3><p>Palpation technique changes in response to what the clinician feels. A rigid flow could undermine clinical reasoning.</p></div>
     <div class="ts-node"><div class="ts-who">Engineering</div><h3>Need buildable scope</h3><p>Every added gesture, sensor behavior, and configuration increased technical complexity for v1.</p></div>
-    <div class="ts-bottom"><strong>Research framing:</strong> My research focused on defining the minimum set of clinical behaviors the system needed to support first, while identifying where flexibility was necessary to preserve the value of the exam.</div>
+    <div class="ts-bottom"><strong>Product framing:</strong> My work focused on defining the minimum set of clinical behaviors the MVP needed to support first, while identifying where flexibility was necessary to preserve the value of the exam.</div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
 <section class="section" id="research">
-  <div class="s-tag reveal">Research plan</div>
-  <h2 class="reveal">I created a research dataset where none existed</h2>
-  <p class="intro-p reveal">Because there was no working system to test, I focused on the clinical behavior the system would need to support. I combined structured video task analysis with expert validation to move from observable clinical technique to system requirements.</p>
-
+  <div class="s-tag reveal">Approach</div>
+  <h2 class="reveal">I mapped the clinical workflow before the team built</h2>
+  <p class="intro-p reveal">
+      Because nothing had been built yet, I focused on the clinical behaviors v1 would need to support. 
+      I started by reviewing medical texts, but quickly found that written descriptions missed the nuance of hand movement, 
+      pressure, and sequence. I pivoted to structured video task analysis and expert validation, translating observable 
+      clinical technique into MVP requirements, build priorities, and product tradeoffs.</p>
   <div class="rq-grid reveal">
     <div class="rq-card">
-      <div class="rq-num">Research question 01</div>
-      <h3>Which motions appear most often?</h3>
-      <p>Which palpation motions are present consistently enough across neck and thyroid exams to prioritize for v1?</p>
+      <div class="rq-num">Product question 01</div>
+      <h3>What should v1 support first?</h3>
+      <p>Which palpation motions were consistent enough across neck and thyroid exams to justify prioritizing in the MVP?</p>
     </div>
     <div class="rq-card">
-      <div class="rq-num">Research question 02</div>
-      <h3>Which behaviors are clinically meaningful?</h3>
-      <p>Beyond frequency — which motions and pressure behaviors are essential to diagnostic reasoning?</p>
+      <div class="rq-num">Product question 02</div>
+      <h3>What should not be oversimplified?</h3>
+      <p>Which motions, pressure changes, and repeat passes were essential to clinical reasoning, even if they added product complexity?</p>
     </div>
     <div class="rq-card">
-      <div class="rq-num">Research question 03</div>
-      <h3>What constraints would create clinical risk?</h3>
-      <p>Which product decisions — rigid sequences, capped pressure — would disrupt how clinicians actually work?</p>
+      <div class="rq-num">Product question 03</div>
+      <h3>Where would product constraints create risk?</h3>
+      <p>Which product decisions — such as rigid sequences or capped pressure — would disrupt how clinicians actually work?</p>
     </div>
   </div>
 
   <div class="process-flow reveal">
-    <div class="process-step"><div class="ps-num">01</div><div class="ps-method">Behavioral analysis</div><div class="ps-step"><h3>Video task analysis</h3><p>I coded clinical training videos for neck and thyroid exams, breaking each exam into discrete palpation motions and tracking motion type, occurrence, and approximate proportion of exam activity.</p></div><span class="ps-output">Output: motion taxonomy</span></div>
+    <div class="process-step"><div class="ps-num">01</div><div class="ps-method">Workflow analysis</div><div class="ps-step"><h3>Video task analysis</h3><p>I coded clinical training videos for neck and thyroid exams, breaking each exam into discrete palpation motions and tracking motion type, occurrence, and approximate proportion of exam activity.</p></div><span class="ps-output">Output: v1 motion model</span></div>
     <div class="process-step"><div class="ps-num">02</div><div class="ps-method">Quant synthesis</div><div class="ps-step"><h3>Frequency and coverage analysis</h3><p>I compared how often each motion appeared across exams and how much of the exam it represented. This helped separate core v1 behaviors from lower-frequency edge cases.</p></div><span class="ps-output">Output: prioritization evidence</span></div>
-    <div class="process-step"><div class="ps-num">03</div><div class="ps-method">Expert validation</div><div class="ps-step"><h3>ENT specialist interview</h3><p>I used the motion analysis as a starting point for expert validation, probing which behaviors mattered diagnostically and where clinicians needed freedom to adapt during the exam.</p></div><span class="ps-output">Output: clinical constraints</span></div>
-    <div class="process-step"><div class="ps-num">04</div><div class="ps-method">Stakeholder alignment</div><div class="ps-step"><h3>Research synthesis for build decisions</h3><p>I translated findings into MVP requirements, deferral logic, and research-backed tradeoffs so design and engineering could align around evidence rather than opinions.</p></div><span class="ps-output">Output: build-ready requirements</span></div>
+    <div class="process-step"><div class="ps-num">03</div><div class="ps-method">Expert validation</div><div class="ps-step"><h3>ENT specialist interview</h3><p>I used the motion analysis as a starting point for expert validation, probing which behaviors mattered diagnostically and where clinicians needed freedom to adapt during the exam.</p></div><span class="ps-output">Output: workflow constraints</span></div>
+    <div class="process-step"><div class="ps-num">04</div><div class="ps-method">Stakeholder alignment</div><div class="ps-step"><h3>Research synthesis for build decisions</h3><p>I translated findings into MVP requirements, deferral logic, and evidence-backed tradeoffs so design and engineering could align around what to build first.</p></div><span class="ps-output">Output: build-ready requirements</span></div>
   </div>
 
   <div class="freq-section reveal">
@@ -229,14 +232,14 @@ h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;l
 <div class="section-divider"></div>
 
 <section class="section" id="recommendations">
-  <div class="s-tag reveal">Synthesis into requirements</div>
-  <h2 class="reveal">Turning evidence into product direction</h2>
-  <p class="intro-p reveal">I translated the research into a set of build-facing requirements that connected each product decision back to evidence. This helped the team understand not only what to build, but why.</p>
+  <div class="s-tag reveal">Product requirements</div>
+  <h2 class="reveal">Turning clinical behavior into build decisions</h2>
+  <p class="intro-p reveal">I translated the findings into build-facing requirements that connected each product decision back to observed clinical behavior. This gave the team a clearer rationale for what to build, what to defer, and what to test before investing engineering time.</p>
 
   <div class="mockup-section reveal">
-    <div class="mockup-label">Evidence → product requirement</div>
+    <div class="mockup-label">Evidence → MVP requirement</div>
     <table class="evidence-table">
-      <thead><tr><th>Research evidence</th><th>Implication</th><th>Product requirement</th><th>Priority</th></tr></thead>
+      <thead><tr><th>Research evidence</th><th>Implication</th><th>MVP requirement</th><th>Priority</th></tr></thead>
       <tbody>
         <tr><td><strong>Circular and press/release dominated observed exams</strong>Most consistent motions across coded training videos.</td><td>These are the strongest candidates for the first sensing model.</td><td>Support circular and press/release motion capture in v1.</td><td><span class="tag">MVP</span></td></tr>
         <tr><td><strong>Lateral sweep and pinch/lift appeared less often</strong>Lower-frequency behaviors, but still clinically plausible.</td><td>Do not overbuild v1, but avoid closing the door on future support.</td><td>Define an extension pattern for additional motions before finalizing architecture.</td><td><span class="tag">V2-ready</span></td></tr>
@@ -250,10 +253,10 @@ h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;l
 <div class="section-divider"></div>
 
 <section class="section" id="testing">
-  <div class="s-tag reveal">Concept validation</div>
-  <h2 class="reveal">I used a fake-door test to resolve a scope debate</h2>
-  <p class="intro-p reveal">One unresolved question was whether the MVP should include configurable sensitivity settings. Clinicians might need control over pressure thresholds, but engineering was concerned that settings would add instability and delay the build.</p>
-  <p class="reveal">Rather than resolve the disagreement through opinion, I reframed it as a research question: would clinicians actually look for customization during setup?</p>
+  <div class="s-tag reveal">De-risking scope</div>
+  <h2 class="reveal">I proposed a fake-door test to de-risk an expensive feature</h2>
+  <p class="intro-p reveal">One unresolved product question was whether the MVP should include configurable sensitivity settings. Clinicians might need control over pressure thresholds, but engineering was concerned that settings would add instability and delay the build.</p>
+  <p class="reveal">Rather than resolve the disagreement through opinion, I reframed it as a product experiment: would clinicians actually look for customization during setup?</p>
 
   <div class="fakedoor-section reveal">
     <div class="fd-grid">
@@ -274,9 +277,9 @@ h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;l
         </div>
       </div>
       <div class="fd-steps">
-        <div class="fd-step-row"><div class="fd-step-n">Signal</div><div class="fd-step-body"><h3>Measure intent before implementation</h3><p>Click-through would indicate whether clinicians noticed and actively sought configurability in context.</p></div></div>
+        <div class="fd-step-row"><div class="fd-step-n">Signal</div><div class="fd-step-body"><h3>Measure demand before implementation</h3><p>Click-through would indicate whether clinicians noticed and actively sought configurability in context.</p></div></div>
         <div class="fd-step-row"><div class="fd-step-n">Follow-up</div><div class="fd-step-body"><h3>Separate need from curiosity</h3><p>Short interviews with clickers would clarify whether the control reflected a real workflow need or simple exploration.</p></div></div>
-        <div class="fd-step-row"><div class="fd-step-n">Decision</div><div class="fd-step-body"><h3>Create a defensible path</h3><p>If intent was low, defer settings. If intent was high and clinically grounded, prioritize settings with a narrower first implementation.</p></div></div>
+        <div class="fd-step-row"><div class="fd-step-n">Decision</div><div class="fd-step-body"><h3>Define a defensible product path</h3><p>If intent was low, defer settings. If intent was high and clinically grounded, prioritize settings with a narrower first implementation.</p></div></div>
       </div>
     </div>
   </div>
@@ -288,25 +291,25 @@ h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;l
 
 <section class="section" id="impact">
   <div class="s-tag reveal">Impact</div>
-  <h2 class="reveal">From ambiguous concept to build-ready MVP direction</h2>
-  <p class="intro-p reveal">The final output was not just a research summary. It was a set of research-backed product decisions: what v1 should support, what should be deferred, what should be tested before building, and what constraints the system should never violate.</p>
+  <h2 class="reveal">From ambiguous concept to MVP requirements</h2>
+  <p class="intro-p reveal">The final output was a set of product decisions: what v1 should support, what should be deferred, what should be tested before building, and which clinical workflow constraints the system should never violate.</p>
 
   <div class="outcome-strip reveal">
-    <div class="oc"><div class="oc-n">MVP</div><h3>Defined v1 scope</h3><p>Prioritized circular and press/release as the first motion capture model, with lower-frequency motions deferred.</p></div>
+    <div class="oc"><div class="oc-n">MVP</div><h3>Clarified v1 scope</h3><p>Prioritized circular and press/release as the first motion capture model, with lower-frequency motions deferred.</p></div>
     <div class="oc"><div class="oc-n">Risk</div><h3>Protected clinical fidelity</h3><p>Identified where simplifying the product would undermine the exam: fixed sequence, capped pressure, and restricted passes.</p></div>
     <div class="oc"><div class="oc-n">$1.5M</div><h3>Supported funding confidence</h3><p>The research-backed product direction helped stakeholders move forward with development funding.</p></div>
   </div>
 
   <div class="close-grid reveal">
-    <div class="close-card"><h3>Methods represented</h3><ul><li>Task analysis and behavioral coding</li><li>Expert interview and clinical validation</li><li>Research synthesis and requirement definition</li><li>Fake-door testing and product experiment design</li></ul></div>
+    <div class="close-card"><h3>Capabilities demonstrated</h3><ul><li>0→1 UX research and MVP definition</li><li>Clinical workflow analysis and expert validation</li><li>Evidence-based requirement definition</li><li>Fake-door testing and product experiment design</li></ul></div>
     <div class="close-card" style="display:flex;flex-direction:column;justify-content:center;gap:1rem">
       <p style="font-size:15px;color:var(--mid);line-height:1.8;margin:0">This project shows how research can create clarity in ambiguous 0→1 spaces — translating expert behavior and clinical constraints into decisions that engineering and design can build from with confidence.</p>
-      <a href="index.html#work" style="display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;border-radius:100px;padding:.75rem 1.35rem;font-size:12px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;border:1px solid var(--border);color:var(--ink);background:var(--ww);width:fit-content;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 14px rgba(74,56,32,.09)'" onmouseout="this.style.transform='';this.style.boxShadow=''">← Back to all work</a>
+      <a href="index_revised.html#work" style="display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;border-radius:100px;padding:.75rem 1.35rem;font-size:12px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;border:1px solid var(--border);color:var(--ink);background:var(--ww);width:fit-content;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 14px rgba(74,56,32,.09)'" onmouseout="this.style.transform='';this.style.boxShadow=''">← Back to all work</a>
     </div>
   </div>
 </section>
 
-<footer><span class="fn">Angela Chan</span><p>UX Research Case Study · Haptic Telemedicine Glove</p></footer>
+<footer><span class="fn">Angela Chan</span><p>UX Research Case Study · Remote Clinical Exam Tool</p></footer>
 <script>
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
